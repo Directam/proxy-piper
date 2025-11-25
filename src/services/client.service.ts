@@ -4,6 +4,11 @@ import {
   ForwardRequest,
   ForwardResponse,
 } from '../Interfaces/forward-request.interface';
+import {
+  RedirectRequest,
+  RedirectResponse,
+} from '../Interfaces/redirect-request.interface';
+import { RedirectType } from '../dtos/redirect-request.dto';
 
 @Injectable()
 export class ClientService {
@@ -49,5 +54,32 @@ export class ClientService {
         headers: {},
       };
     }
+  }
+
+  async redirectRequest(request: RedirectRequest): Promise<RedirectResponse> {
+    try {
+      new URL(request.targetUrl);
+    } catch (error) {
+      console.error(error);
+      return {
+        status: 400,
+        location: '',
+        headers: { 'Content-Type': 'application/json' },
+      };
+    }
+
+    const redirectStatus: number =
+      request.redirectType || RedirectType.TEMPORARY;
+
+    const headers: Record<string, string> = {
+      ...request.headers,
+      Location: request.targetUrl,
+    };
+
+    return {
+      status: redirectStatus,
+      location: request.targetUrl,
+      headers,
+    };
   }
 }
