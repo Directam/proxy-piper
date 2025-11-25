@@ -4,6 +4,7 @@ import {
   IsOptional,
   IsEnum,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export enum RedirectType {
   PERMANENT = 301,
@@ -18,6 +19,7 @@ export class RedirectRequestDto {
   targetUrl: string;
 
   @IsOptional()
+  @Type((): NumberConstructor => Number)
   @IsEnum(RedirectType)
   redirectType?: RedirectType;
 }
