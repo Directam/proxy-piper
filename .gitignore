@@ -36,6 +36,8 @@ coverage/
 
 # Docker
 docker-compose.override.yml
+Dockerfile.override
+docker-nest-entrypoint
 
 # Optional: NestJS CLI files
 .nest-cli.json
