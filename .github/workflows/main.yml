@@ -22,7 +22,7 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-            cd /home/proxy_piper/proxy-piper &&
+            cd /home/proxy_piper/proxy-piper/src &&
             git reset --hard &&
             git pull &&
             docker-compose -f docker-compose.override.yml build &&
